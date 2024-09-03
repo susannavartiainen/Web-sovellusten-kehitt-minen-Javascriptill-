@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Test</title>
+</head>
+<body>
+    <script>
+        var x = 21; // ikä
+        var order = 'Beer'; // tilaus
+
+        if (x > 50) {
+            document.write("<h1>He's over 50!</h1>");
+            console.log("He's over 50!");
+        } else if (x <= 50 && x > 40) {
+            document.write("<h2>In his 40s, enjoying some " + order + "</h2>");
+            console.log("In his 40s, enjoying some " + order);
+        } else if (x <= 40 && x > 30) {
+            document.write("<h3>Middle aged man, who ordered some " + order + "</h3>");
+            console.log("Middle aged man, who ordered some " + order);
+        } else if (x <= 30 && x >= 18) {
+            document.write("<p>A young adult who ordered some " + order + "</p>");
+            console.log("A young adult who ordered some " + order);
+        } else {
+            document.write("<p>It seems you're a bit underaged.</p>");
+            console.log("It seems you're a bit underaged.");
+        }
+    </script>
+</body>
+</html>
