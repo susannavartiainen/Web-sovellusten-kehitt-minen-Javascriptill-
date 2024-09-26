@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Workshop 3</title>
+        <link rel="stylesheet" href="css/styles.css">
+        <script>
+            
+        </script>
+    </head>
+    <body class="ws3">
+        <h1>Workshop 3: JavaScript Events</h1>
+        <hr />
+        <p>In this exercise we will practice the use of JavaScript events. Use the lecture-material as a reference guide side by side with these exercises. It might also be a good idea to save the lines of code you write during the exercises for later use.</p>
+        <hr/>
+        <h2>Exercise 1</h2>
+        <p>Below you will see three buttons. Edit the source code and add an onClick-events to these buttons.</p>
+        <p>
+		
+          <button onClick="showAlert()">Click me</button>        
+		<script>
+				function showAlert() { //click me nappi
+					const currentDate = new Date();
+					alert("You clicked me! Current date: " + currentDate);
+				}
+        </script>
+		
+          <button onClick="showTable()">Show table</button>
+		<script>
+				function showTable() { //taulukko
+    document.write(`
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>$433,060</td>
+                </tr>
+                <tr>
+                    <td>Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>$162,700</td>
+                </tr>
+            </tbody>
+        </table>
+    `);
+}
+
+		
+        </script>
+
+          <button onClick="getLocation()">Geolocation</button>
+			<div id="location"></div>
+		<script>
+						function getLocation() { //sijainti
+				if (navigator.geolocation) {
+					navigator.geolocation.getCurrentPosition(showPosition, showError);
+				} else {
+					document.getElementById("location").innerHTML = "Geolocation is not supported by this browser.";
+				}
+			}
+
+			function showPosition(position) {
+				const lat = position.coords.latitude;
+				const lon = position.coords.longitude;
+				document.getElementById("location").innerHTML = `Latitude: ${lat}, Longitude: ${lon}`;
+				console.log(`Latitude: ${lat}, Longitude: ${lon}`);
+			}
+
+			function showError(error) {
+				switch(error.code) {
+					case error.PERMISSION_DENIED:
+						alert("User denied the request for Geolocation.");
+						break;
+					case error.POSITION_UNAVAILABLE:
+						alert("Location information is unavailable.");
+						break;
+					case error.TIMEOUT:
+						alert("The request to get user location timed out.");
+						break;
+					case error.UNKNOWN_ERROR:
+						alert("An unknown error occurred.");
+						break;
+				}
+			}
+
+        </script>
+
+        </p>
+
+        <ol>
+          <li>The first button should open an alert-button, which will say "You clicked me!" </li>
+          <li> When you see the button working, add the current date after the text by using the Date() -function.</li>
+          <li>The second button should call a function called showTable()". ShowTable function should output a simple HTML-table (below) to the page. Use document.write to print data. Feel free to modify the data on the table.</li>
+        </ol>
+        <table id="example" class="display">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Salary</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>$433,060</td>
+                </tr>
+                <tr>
+                    <td>Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>$162,700</td>
+                </tr>              
+            </tbody>
+        </table>
+        <ol start="4">
+            <li>The last button should check Geolocation of the user, and output it to the console and to the page. Note: Some browsers might not allow you to do this. Try different browsers if you get errors.</li>
+        </ol>
+        <hr/>
+		
+		
+        <h2 onmouseover="mouseOver()" onmouseout="mouseOut()">Exercise 2</h2>
+		<script>
+					function mouseOver() {
+				console.log("Stepped over my a mouse!");
+			}
+
+					function mouseOut() {
+				alert("Bye bye mouse!");
+			}
+
+		</script>
+
+        <ul>
+            <li>Add an&nbsp;onMouseOver event on the&nbsp;Heading "Exercise 2" of this page.&nbsp;It should&nbsp;fire when the users mouse is moved 
+        over&nbsp;it. Output "Stepped over my a mouse!" on the console.</li>
+            <li>Add another event, which will fire then the mouse leaves the Exercise 2 -heading. This time show an alert window to the user saying: "Bye bye mouse!"</li>
+        </ul>
+        <hr/>
+		
+		
+        <h2>Exercise 3</h2>
+        <p>Below you will see a simple form.</p>
+        <ul>
+          <li>Add onfocus -event to the&nbsp;textarea below. When the user enters the textarea, it should show a text saying: "Please fill in the form with proper data.". You can try modifying the background color of the box as well. &nbsp;</li>
+          <li>Try to use onkeydown -event on the textarea. It should calculate the number of keypresses and output them on the screen. Could you think other smart ways to use it?</li>
+          <li>When the form button is clicked, check if the textarea is empty. Notify the user with appropriate message. HINT: You can access the Textarea using the following command:   <i>document.getElementById("textdata").value</i>. We will study the forms deeper in Workshops 4 and 5.</li>
+        </ul>
+		
+		<form onsubmit="return checkTextarea()">
+			<textarea id="textdata" onfocus="focusTextarea()" onkeydown="countKeyPresses()"></textarea><br>
+			<span id="charcount"></span><br>
+			<button type="submit">Send me</button>
+		</form>
+		<script>
+		// Funktio joka aktivoituu kun textarea saa fokuksen
+function focusTextarea() {
+    const textarea = document.getElementById("textdata");
+    textarea.style.backgroundColor = "#f0f8ff"; // Muuta taustaväri
+    document.getElementById("charcount").innerText = "Please fill in the form with proper data.";
+}
+
+// Funktio, joka laskee näppäinten painallukset
+let keypressCount = 0;
+function countKeyPresses() {
+    keypressCount++;
+    document.getElementById("charcount").innerText = "Keypresses: " + keypressCount;
+}
+
+// Funktio, joka tarkistaa onko kenttä tyhjä
+function checkTextarea() {
+    const textareaValue = document.getElementById("textdata").value;
+    if (textareaValue.trim() === "") {
+        alert("Please fill in the textarea before submitting.");
+        return false; // Estetään lomakkeen lähetys
+    }
+    return true; // Sallitaan lomakkeen lähetys
+}
+
+		</script>
+
+        <hr/>
+        <h2>Exercise 4</h2>
+        <h2 id="coords">Coordinates will be displayed here</h2>
+<div id="coordinates" style="width:300px; height:200px; border:1px solid black;" onmousemove="showCoords(event)">
+    Move your mouse here
+</div>
+<script>
+// Funktio, joka näyttää hiiren koordinaatit
+function showCoords(event) {
+    // Saadaan x ja y koordinaatit
+    const x = event.clientX;
+    const y = event.clientY;
+
+    // Tulostetaan koordinaatit konsoliin
+    console.log("X: " + x + ", Y: " + y);
+
+    // Päivitetään H2-elementti näyttämään koordinaatit
+    document.getElementById("coords").innerHTML = "X: " + x + ", Y: " + y;
+}
+
+</script>
+        <p>Add onMouseMove -event to the DIV-element above. When you move mouse over the DIV (rectangle) the program should output the coordinates of your pointer. Try first outputting to the console using console.log.</p>
+        <p> When the program is working, you can try outputting the text on the H2 element with an id "coords" the box</p> 
+        <p>HINT: You need to use document.getElementById("coordinates").innerHTML to achieve this.</p>
+    </body>
+</html>
