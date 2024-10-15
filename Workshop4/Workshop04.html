@@ -4,7 +4,13 @@
 		<title>Workshop 4</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/styles.css">
+	    <style>
+			#carimage {
+				position: relative; /* varmistaa, että kuvaa voi siirtää */
+			}
+		</style>
 	</head>
+
 	<body class="ws4">
 		<h1 id="workshopHeading">Workshop 4: DOM Scripting</h1> <!-- lisätty id -->
 
@@ -134,7 +140,7 @@
 				<td>Airi Satou</td>
 				<td>Accountant</td>
 				<td>$162,700</td>
-			  </tr>
+			</tr>
 			</tbody>
 			<tfoot>
 			</tfoot>
@@ -274,6 +280,47 @@
 			function removeBorder() {
 				const carImage = document.getElementById("carimage");
 				carImage.style.border = "none";
+			}
+		</script>
+
+		<script> // tehtävä 4
+			// funktio, joka siirtää kuvaa 200px vasemmalle ja 500px alas
+			function changePosition() {
+				const carImage = document.getElementById("carimage");
+				carImage.style.left = "200px";
+				carImage.style.top = "500px";
+			}
+
+			// funktio, joka liikuttaa kuvaa edestakaisin
+			let direction = 1; 
+			let position = 0; 
+
+			function doMove() {
+				const carImage = document.getElementById("carimage");
+				position += 5 * direction;
+				carImage.style.left = position + "px";
+
+				// vaihdetaan suunta, jos kuva saavuttaa rajan
+				if (position >= window.innerWidth - 400 || position <= 0) {
+					direction *= -1;
+				}
+			}
+
+			// vähentää läpinäkyvyyttä
+			let opacity = 1;
+
+			function fadeOut() {
+				const carImage = document.getElementById("carimage");
+				if (opacity > 0) {
+					opacity -= 0.05;
+					carImage.style.opacity = opacity;
+				}
+			}
+
+			// funktio, joka poistaa kuvan sivulta
+			function remove() {
+				const carImage = document.getElementById("carimage");
+				carImage.remove();
 			}
 		</script>
 		
