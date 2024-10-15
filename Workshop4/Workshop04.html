@@ -62,18 +62,26 @@
 				<li>Write a JavaScript function, which will fire when the pulldown menu item is changed. Show the users choice using alert -box.</li>
 				<li>When the mouse is moved on top of the image, a colored border should appear surrounding it. On mouse out, border should disappear</li>
 				<li>When you have accomplished the above, change the image (id=&quot;carimage&quot;) below based on the users choice on the pulldown menu below. Find appropriate images from the web.
-			</ul>
-		  <p>Select a new car from the list.</p>
-		  <select name="mySelect" id="mySelect" onchange="">
+		</ul>
+		<p>Select a new car from the list.</p>
+		<select name="mySelect" id="mySelect" onchange="">
 			<option value="BMW">BMW         
 			<option value="Audi">Audi
 			<option value="Mercedes">Mercedes
 			<option value="Volvo">Volvo
-		  </select>
-		  <br>
-		  <br>
-		<img alt="" onmouseover="" onmouseout="" style="left: 0px; opacity: 1;" src="https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png" width="400" id="carimage"/>
+		</select>
+		<br>
+		<br>
+		<img 
+			alt="car image" 
+			id="carimage" 
+			src="https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png" 
+			width="400" 
+			onmouseover="addBorder()" 
+			onmouseout="removeBorder()" 
+		/>
 		<hr/>
+
 		<h2>Exercise 4: Moving things around</h2>
 		<ul>
 		  <li>
@@ -224,6 +232,48 @@
 				for (let i = 0; i < surpriseElements.length; i++) {
 					surpriseElements[i].style.fontSize = "20px"; // fonttikoko
 				}
+			}
+		</script>
+
+		<script> // tehtävä 3
+			// funktio, joka näyttää valinnan ja vaihtaa kuvan
+			function showChoiceAndChangeImage() {
+				const selectElement = document.getElementById("mySelect");
+				const choice = selectElement.value;
+
+				// näyttää alert-ikkunan käyttäjän valinnasta
+				alert("You selected: " + choice);
+
+				// vaihdetaan kuva valinnan perusteella
+				const carImage = document.getElementById("carimage");
+				switch (choice) {
+					case "BMW":
+						carImage.src = "https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png";
+						break;
+					case "Audi":
+						carImage.src = "https://www.audi.fi/content/dam/nemo/models/a6-e-tron/s6-sportback-e-tron/my-2025/stage/S6e_2023_6067-L.jpg?width=1920";
+						break;
+					case "Mercedes":
+						carImage.src = "https://images.netdirector.co.uk/gforces-auto/image/upload/w_822,h_548,q_auto,c_fill,f_auto,fl_lossy/auto-client/e8969ac986c521c484742726203cd9d0/eqe_350_option2.png";
+						break;
+					case "Volvo":
+						carImage.src = "https://cas.volvocars.com/image/dynamic/MY25_2417/536/exterior-v1/R8/62600/R78000/R190/FN01/TC06/_/_/TP05/_/JT02/GR08/T101/TJ02/NP02/TM04/JG02/CB04/_/JB0A/T201/LF05/_/VP09/FH01/_/_/_/_/_/default.jpg?market=fi&client=gox-graph%7Cpdps&angle=103&w=1366";
+						break;
+					default:
+						carImage.src = "https://www.bmw.fi/content/dam/bmw/common/all-models/m-series/m8-coupe/2022/navigation/bmw-8series-coupe-modellfinder.png";
+				}
+			}
+
+			// funktio, joka lisää reunuksen kuvalle, kun hiiri on sen päällä
+			function addBorder() {
+				const carImage = document.getElementById("carimage");
+				carImage.style.border = "5px solid blue";
+			}
+
+			// funktio, joka poistaa reunuksen kuvalta, kun hiiri poistuu sen päältä
+			function removeBorder() {
+				const carImage = document.getElementById("carimage");
+				carImage.style.border = "none";
 			}
 		</script>
 		
