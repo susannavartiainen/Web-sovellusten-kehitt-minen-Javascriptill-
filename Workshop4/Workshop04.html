@@ -323,6 +323,33 @@
 				carImage.remove();
 			}
 		</script>
+
+		<script> // tehtävä 5
+			function insertRow() {
+				const table = document.getElementById('data').getElementsByTagName('tbody')[0];
+
+				// haetaan syötekenttien arvot
+				const name = document.getElementById('nameField').value;
+				const position = document.getElementById('positionField').value;
+				const salary = document.getElementById('salaryField').value;
+
+				// luodaan uusi rivi ja solut
+				const newRow = table.insertRow();
+				const nameCell = newRow.insertCell(0);
+				const positionCell = newRow.insertCell(1);
+				const salaryCell = newRow.insertCell(2);
+
+				// lisätään arvot soluihin
+				nameCell.textContent = name || "Default Name";
+				positionCell.textContent = position || "Default Position";
+				salaryCell.textContent = salary || "$0";
+
+				// tyhjennetään kentät
+				document.getElementById('nameField').value = "";
+				document.getElementById('positionField').value = "";
+				document.getElementById('salaryField').value = "";
+			}
+		</script>
 		
 	</body>
 </html>
