@@ -43,7 +43,7 @@
 			</label>
 			<br>
 			<label>
-				<input type="checkbox" name="CheckboxGroup1" value="3" id="CheckboxGroup1_2"> 
+				<input onchange="changeSurpriseFontSize()" type="checkbox" name="CheckboxGroup1" value="3" id="CheckboxGroup1_2"> 
 				<span id="surpise">Surprise</span>
 			</label>
 		</p>
@@ -52,9 +52,11 @@
 		  <li>Second checkbox should return the visibility of the element to a normal state (block).</li>
 		  <li>Third checkbox should find the elements with class &quot;surprise&quot; and change the font size to 20.</li>
 		</ul>
-		<div id="me" class="red-box"></div>
+
+		<div id="me" class="red-box" style="width: 100px; height: 100px; background-color: red;"></div>
 		<p>&nbsp;</p>
 		<hr/>
+
 		<h2>Exercise 3: Images and pulldowns</h2>
 			<ul>
 				<li>Write a JavaScript function, which will fire when the pulldown menu item is changed. Show the users choice using alert -box.</li>
@@ -151,7 +153,7 @@
 			<li dir="ltr">How would you replace the contents only on the ones with the word &lsquo;Select&rsquo; in them?</li>
 		</ul>
 
-		<script>
+		<script> // tehtävä 1
 			// funktio joka muuttaa otsikon
 			function changeHeading() {
 				// haetaan otsikko elementin id:n perusteella ja muutetaan sen teksti
@@ -179,6 +181,51 @@
 			}
 		</script>
 
+		<script> // tehtävä 2
+			// funktio, joka muuttaa otsikon
+			function changeHeading() {
+				const heading = document.getElementById("workshopHeading");
+				heading.textContent = "Modified Heading!";
+			}
+
+			// muuttaa 2. tehtävän otsikon tyyliasetuksia
+			function modifyExercise2Style() {
+				const exercise2Heading = document.getElementById("exercise2Heading");
+				exercise2Heading.style.fontSize = "20px"; 
+				exercise2Heading.style.fontFamily = "Arial, sans-serif"; 
+				exercise2Heading.style.color = "white";
+				exercise2Heading.style.backgroundColor = "blue"; 
+			}
+
+			// funktio, joka lisää uuden kappaleen ja muuttaa taustavärin
+			function appendText() {
+				const newParagraph = document.createElement("p");
+				newParagraph.innerHTML = '<strong><em>"Lorem ipsum"</em></strong> dolor sit amet...';
+				const fourthParagraph = document.getElementsByTagName("p")[3];
+				fourthParagraph.insertAdjacentElement('afterend', newParagraph);
+				document.body.style.backgroundColor = "#f0f0f0";
+			}
+
+			// funktio, joka piilottaa elementin, jonka id on "me"
+			function hide() {
+				const element = document.getElementById("me");
+				element.style.display = "none"; // piilotetaan elementti
+			}
+
+			// funktio, joka näyttää piilotetun elementin
+			function show() {
+				const element = document.getElementById("me");
+				element.style.display = "block"; // näytetään elementti
+			}
+
+			// funktio, joka muuttaa kaikkien "surprise"-luokan elementtien fonttikoon
+			function changeSurpriseFontSize() {
+				const surpriseElements = document.getElementsByClassName("surprise");
+				for (let i = 0; i < surpriseElements.length; i++) {
+					surpriseElements[i].style.fontSize = "20px"; // fonttikoko
+				}
+			}
+		</script>
 		
 	</body>
 </html>
