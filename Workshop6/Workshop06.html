@@ -4,16 +4,27 @@
 		<title>Workshop 6</title>
 		<meta charset="utf-8">
 		<link rel="stylesheet" href="css/styles.css">
+		<style>
+			body { font-family: Arial, sans-serif; }
+			.todo-container { width: 300px; margin: auto; }
+			#todoList { list-style-type: none; padding: 0; }
+			li { display: flex; justify-content: space-between; align-items: center; margin: 5px 0; }
+			button { margin-left: 10px; }
+		</style>
 	</head>
-	<body class="ws6" onload="">
+
+	<body class="ws6" onload="loadData(); loadTodos()">
 		<h1>Workshop 6: Using Localstorage</h1>
 		<hr />
+
+		<!-- Tehtävä 1 -->
 		<h2>Exercise 1: Saving the entered data</h2>
 		<p>Use localstorage to save the data entered to the form fields below. The JavaScript code 
 		should read the values entered when the user clicks the button and save the data into 
 		localstorage. Use Developer Tools to study what data is saved and how. You can even try to 
 		modify this data using the developer tools.</p>
         <p><strong>Note: Some versions of Chrome's Web Developer Tools have a known issue with showing LocalStorage so if nothing is showing up, try with a different browser.</strong></p>
+		
 		<div>
 			<label for="destination">Destination:</label>
 			<input type="text" name="textfield" id="destination">
@@ -36,6 +47,8 @@
 			</p>
 		</div>
 		<hr/>
+
+		 <!-- Tehtävä 2 -->
 		<div>
 			<h2>Exercise 2: Reloading the saved data</h2>
 			<p>After you have managed to save some data to a localstorage, its time to utilize it. Add a 
@@ -43,9 +56,11 @@
 			assignment, and load them into a div with an id="sessionData". This should happen when the 
 			page is loaded, because we want the data to be loaded then as well. HINT: use onLoad -
 			event on the body tag.</p>
-			<div id="sessiondata">Session data goes here!</div>
+			<div id="sessionData">Session data goes here!</div> 
 		</div>
 		<hr/>
+
+		<!-- Tehtävä 3 -->
 		<div>
 			<h2>Exercise 3: Sessionstorage vs. localstorage</h2>
 			<p>Compare sessionstorage and localstorage. Think of a few examples on where each 
@@ -54,14 +69,24 @@
 			select Application tab, then LocalStorage on the left).</p>
 		</div>
 		<hr/>
+
+		<!-- Tehtävä 4 -->
 		<div>
 			<h2>Exercise 4:</h2>
 			<p>Try to add localstorage features to your project work. This means, that todo-list for 
 			example, would remember the data that you have entered between browser refresh and even 
 			restarts.</p>
 		</div>
+		<body onload="loadTodos()"> 
+			<div class="todo-container">
+				<h1>To-Do List</h1>
+				<input type="text" id="todoInput" placeholder="Enter a new task"> 
+				<button onclick="addTodo()">Add</button> 
+				<ul id="todoList"></ul> 
+			</div>
 
-		<script> // tehtävä 1
+		<script> 
+			// tehtävä 1
 			// funktio joka lukee tiedot ja tallentaa ne localstorageen
 			function getData() {
 				// hakee arvot syöttökentistä
@@ -85,6 +110,119 @@
 			
 				alert("Data saved successfully to localStorage.");
 			}
+			// tehtävä 2
+			// funktio, joka lataa tallennetut tiedot localStoragesta
+			function loadData() {
+				// haetaan tallennetut tiedot localStoragesta
+				const destination = localStorage.getItem("destination");
+				const arrivalDate = localStorage.getItem("arrivalDate");
+				const services = JSON.parse(localStorage.getItem("services")); // muutetaan merkkijono taulukoksi
+
+				// haetaan div, johon tiedot ladataan
+				const sessionDataDiv = document.getElementById("sessionData");
+
+				// tarkistetaan, onko tietoja saatavilla
+				if (destination || arrivalDate || (services && services.length > 0)) {
+					// luodaan sisältö
+					let content = `<strong>Kohde:</strong> ${destination || "Ei saatavilla"}<br>
+								<strong>Saapumispäivämäärä:</strong> ${arrivalDate || "Ei saatavilla"}<br>
+								<strong>Palvelut:</strong> ${services && services.length > 0 ? services.join(", ") : "Ei saatavilla"}`;
+
+					// asetetaan sisältö div:iin
+					sessionDataDiv.innerHTML = content;
+				} else {
+					sessionDataDiv.innerHTML = "Ei tallennettuja tietoja."; // ilmoitus, jos tietoja ei ole
+				}
+			}
+			// tehtävä 3
+			// funktio, joka tallentaa tiedot localStorageen
+			function saveData() {
+				const destination = document.getElementById("destination").value;
+				const arrivalDate = document.getElementById("arrival").value;
+				const services = Array.from(document.querySelectorAll('input[name="CheckboxGroup1"]:checked'))
+					.map(checkbox => checkbox.value); // saadaan valittujen palveluiden arvot taulukkoon
+
+				// tallennetaan tiedot localStorageen
+				localStorage.setItem("destination", destination);
+				localStorage.setItem("arrivalDate", arrivalDate);
+				localStorage.setItem("services", JSON.stringify(services)); // tallennetaan taulukko merkkijonona
+
+				// tallennetaan tiedot sessionStorageen
+				sessionStorage.setItem("destination", destination);
+				sessionStorage.setItem("arrivalDate", arrivalDate);
+				sessionStorage.setItem("services", JSON.stringify(services));
+			}
+
+			// funktio, joka lataa tallennetut tiedot localStorage ja sessionStorage
+			function loadData() {
+				// haetaan tallennetut tiedot localStoragesta
+				const destination = localStorage.getItem("destination") || sessionStorage.getItem("destination");
+				const arrivalDate = localStorage.getItem("arrivalDate") || sessionStorage.getItem("arrivalDate");
+				const services = JSON.parse(localStorage.getItem("services")) || JSON.parse(sessionStorage.getItem("services"));
+
+				// haetaan div, johon tiedot ladataan
+				const sessionDataDiv = document.getElementById("sessionData");
+
+				// tarkistetaan, onko tietoja saatavilla
+				if (destination || arrivalDate || (services && services.length > 0)) {
+					// luodaan sisältö
+					let content = `<strong>Kohde:</strong> ${destination || "Ei saatavilla"}<br>
+								<strong>Saapumispäivämäärä:</strong> ${arrivalDate || "Ei saatavilla"}<br>
+								<strong>Palvelut:</strong> ${services && services.length > 0 ? services.join(", ") : "Ei saatavilla"}`;
+
+					// asetetaan sisältö div:iin
+					sessionDataDiv.innerHTML = content;
+				} else {
+					sessionDataDiv.innerHTML = "Ei tallennettuja tietoja."; // ilmoitus, jos tietoja ei ole
+				}
+			}
+
+			// tehtävä 4
+			// Funktio, joka lisää uuden tehtävän
+			function addTodo() {
+				const todoInput = document.getElementById('todoInput'); // Hakee syöttökentän
+				const todoText = todoInput.value.trim(); // Poistaa ylimääräiset välilyönnit
+
+				if (todoText !== '') { // Tarkistaa, että syöttökenttä ei ole tyhjää
+					const todos = JSON.parse(localStorage.getItem('todos')) || []; // Hakee aiemmin tallennetut tehtävät tai luo tyhjän taulukon
+					todos.push(todoText); // Lisätään uusi tehtävä taulukkoon
+					localStorage.setItem('todos', JSON.stringify(todos)); // Tallennetaan taulukko localStorageen
+					todoInput.value = ''; // Tyhjennetään syöttökenttä
+					displayTodos(); // Päivitetään tehtävälista
+				}
+			}
+
+			// funktio, joka näyttää tehtävät
+			function displayTodos() {
+				const todoList = document.getElementById('todoList'); // hakee tehtävälistan
+				todoList.innerHTML = ''; 
+				const todos = JSON.parse(localStorage.getItem('todos')) || [];
+
+				todos.forEach((todo, index) => {
+					const li = document.createElement('li');
+					li.textContent = todo;
+
+					const button = document.createElement('button');
+					button.textContent = 'Delete';
+					button.onclick = () => removeTodo(index);
+					li.appendChild(button);
+					todoList.appendChild(li);
+				});
+			}
+
+			// funktio, joka poistaa tehtävän
+			function removeTodo(index) {
+				const todos = JSON.parse(localStorage.getItem('todos')) || [];
+				todos.splice(index, 1);
+				localStorage.setItem('todos', JSON.stringify(todos));
+				displayTodos();
+			}
+
+			function loadTodos() {
+				displayTodos();
+			}
 		</script>
+
+
 	</body>
 </html>
